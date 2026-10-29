@@ -10,8 +10,8 @@ on:
         description: RELEASE / DEVELOPMENT / DEBUG
         default: DEVELOPMENT
       machine_config:
-        description: xnu MACHINE_CONFIG (HEROLTE = Galaxy S7, A5XELTE, SWEET)
-        default: HEROLTE
+        description: xnu MACHINE_CONFIG (HEROLTE = Galaxy S7, A5XELTE, A04S, SWEET)
+        default: A04S
       keep_going:
         description: make -k (collect all compile errors in one run)
         default: "true"
@@ -180,7 +180,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Check Cortex-A53 compatibility (no ARMv8.1 LSE atomics)
-        if: env.MACHINE_CONFIG == 'A5XELTE' || env.MACHINE_CONFIG == 'HEROLTE'
+        if: env.MACHINE_CONFIG == 'A5XELTE' || env.MACHINE_CONFIG == 'HEROLTE'  || env.MACHINE_CONFIG == 'A04S'
         run: |
           kernel="out/kernel.$(echo "$KERNEL_CONFIG" | tr A-Z a-z).$(echo "$MACHINE_CONFIG" | tr A-Z a-z)"
           test -f "$kernel"
